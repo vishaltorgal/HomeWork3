@@ -28,8 +28,14 @@ public class MainActivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.list);
 
         if(Appconstant.flag) {
-            db.deleteRows();
-            dbcourse.deleteRows();
+
+            if(db.getRecordsCount() >0 ){
+                db.deleteRows();
+            }
+            if(dbcourse.getRecordsCount() >0 ){
+                dbcourse.deleteRows();
+            }
+
             Log.d("vt", "Inserting Data ...");
             db.addStudent(new Student("888261294", "Vishal", "Torgal"));
             db.addStudent(new Student("888261299", "Rohit", "Shah"));

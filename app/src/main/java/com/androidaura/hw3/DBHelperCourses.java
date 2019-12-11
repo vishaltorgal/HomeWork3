@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public class DBHelperCourses extends SQLiteOpenHelper {
 
 
-    public static final String DATABASE_NAME = "hw.db";
+    public static final String DATABASE_NAME = "hw4.db";
     public static final String TABLE_NAME = "courses";
-    private static final String ID = "id";
+   // private static final String ID = "id";
     public static final String CWID = "cwid";
     public static final String COURSEID = "courseid";
     public static final String COURSENAME = "coursename";
@@ -78,9 +78,9 @@ public class DBHelperCourses extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Course course = new Course();
-                course.setCWID(cursor.getString(1));
-                course.setCOURSEID(cursor.getString(2));
-                course.setCOURSENAME(cursor.getString(3));
+                course.setCWID(cursor.getString(0));
+                course.setCOURSEID(cursor.getString(1));
+                course.setCOURSENAME(cursor.getString(2));
 
 
                 courseList.add(course);
@@ -101,5 +101,21 @@ public class DBHelperCourses extends SQLiteOpenHelper {
 
         // return count
         return cursor.getCount();
+    }
+
+    public int getRecordsCount() {
+        int count = 0;
+        String countQuery = "SELECT  * FROM " + TABLE_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+
+
+        if(cursor != null && !cursor.isClosed()){
+            count = cursor.getCount();
+            cursor.close();
+        }
+        return count;
     }
 }

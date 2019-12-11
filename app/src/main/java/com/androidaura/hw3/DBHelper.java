@@ -79,9 +79,9 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Student student = new Student();
-                student.setCWID(cursor.getString(1));
-                student.setFName(cursor.getString(2));
-                student.setLName(cursor.getString(3));
+                student.setCWID(cursor.getString(0));
+                student.setFName(cursor.getString(1));
+                student.setLName(cursor.getString(2));
 
                 // Adding contact to list
                 studentList.add(student);
@@ -95,15 +95,30 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // Getting contacts Count
-    public int getStudentCount() {
+//    public int getStudentCount() {
+//        String countQuery = "SELECT  * FROM " + TABLE_NAME;
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(countQuery, null);
+//        cursor.close();
+//
+//        // return count
+//        return cursor.getCount();
+//    }
+
+    public int getRecordsCount() {
+        int count = 0;
         String countQuery = "SELECT  * FROM " + TABLE_NAME;
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
 
-        // return count
-        return cursor.getCount();
+
+
+        if(cursor != null && !cursor.isClosed()){
+            count = cursor.getCount();
+            cursor.close();
+        }
+        return count;
     }
-
 
 }
